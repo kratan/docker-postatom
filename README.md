@@ -1,5 +1,7 @@
 # Xorg+Docker+GLX+NVIDIA+postAtom
 
+Attention: Do not start this on your Host with running Xorg. 
+
 Build with 
 
 docker build -t postatom .
