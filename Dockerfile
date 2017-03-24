@@ -1,5 +1,5 @@
 FROM nvidia/cuda:8.0-runtime-ubuntu16.04 
-LABEL maintainer "NVIDIA CORPORATION <cudatools@nvidia.com>" 
+LABEL maintainer "NVIDIA CORPORATION <cudatools@nvidia.com>, andreas.kratzer@kit.edu" 
 
 RUN apt-get update && apt-get install -y --no-install-recommends \ 
 	cuda-core-$CUDA_PKG_VERSION \ 
