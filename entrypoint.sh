@@ -1,5 +1,18 @@
 #!/bin/bash
 
+#add cuda tools to command path
+export PATH=/usr/local/cuda/bin:${PATH}
+export MANPATH=/usr/local/cuda/man:${MANPATH}
+
+#add cuda libraries to library path
+if [[ "${LD_LIBRARY_PATH}" != "" ]]
+   then
+   export LD_LIBRARY_PATH=/usr/local/cuda/lib64:${LD_LIBRARY_PATH}
+   else
+   export LD_LIBRARY_PATH=/usr/local/cuda/lib64
+fi
+
+
 #PCI BUS Stuff, using nvidia-smi to support BusIDs
 rm -Rf /etc/X11/xorg.conf
 MAIN_ARRAY=( `nvidia-smi --query-gpu=gpu_bus_id --format=csv,noheader` )
@@ -15,6 +28,13 @@ if [ -z "$COUNT" ]; then
         echo "No NVIDIA CARDS found, maybe you forgot the --device=/dev/nvidiaX in your Docker run command?"
         exit
 fi
+
+#Add no automatic Device searching of Xorg
+echo  'Section "Serverflags"'  >> /etc/X11/xorg.conf
+echo  'Option "AutoAddDevices" "false"'  >> /etc/X11/xorg.conf
+echo  'Option "AutoEnableDevices" "false"'  >> /etc/X11/xorg.conf
+echo  'EndSection'  >> /etc/X11/xorg.conf
+
 
 #Add more device Sections if needed
 if [ $COUNT != $FILE_OCCURENCES ]; then
@@ -89,4 +109,3 @@ chmod +r /home/${USERNAME}/gpunode.key
 
 #Run Xpra with postAtom
 su - ${USERNAME} -c 'Xorg :11 -keeptty -novtswitch -sharevts vt'${USEVT}' & (cd /postAtom/ && XPRA_PASSWORD='${XPRA_PASSWORD}' xpra start :11 --bind-tcp=0.0.0.0:'${XPRAPORT}' --auth=env --ssl=on --ssl-cert=/home/'${USERNAME}'/gpunode.crt --ssl-key=/home/'${USERNAME}'/gpunode.key --no-clipboard --no-pulseaudio --start-child="./postAtom" --exit-with-child --no-printing --no-speaker --no-cursors --dbus-control=no --dbus-proxy=no --use-display --no-daemon)'
-

@@ -1,4 +1,4 @@
-# Xorg+Docker+GLX+NVIDIA+CUDA+postAtom
+# Docker+Xorg(incl. openGL)+NVIDIA+PYCUDA+XPRA(inkl. nvenc)+postAtom
 
 Attention: Do not start this on your Host with running Xorg. 
 
@@ -21,7 +21,7 @@ You have to use a free tty where Xorg can run on.
 Connect with Xpra Client 
 
 ```sh
-XPRA_PASSWORD=Nextpass xpra attach ssl:i31forhlr4:10050 --ssl-server-verify-mode=none --encoding=jpeg
+XPRA_PASSWORD=Nextpass xpra attach ssl:HOSTNAME:10050 --ssl-server-verify-mode=none --encoding=h264
 ```
 
 The switch --ssl-server-verify-mode=none is necessary, because we used a self signed Cert.
