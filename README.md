@@ -1,4 +1,4 @@
-# Docker+Xorg(incl. openGL)+NVIDIA+PYCUDA+XPRA(inkl. nvenc)+postAtom
+# Docker+Xorg(incl. openGL)+NVIDIA+XPRA+postAtom
 
 Attention: Do not start this on your Host with running Xorg. 
 
@@ -14,14 +14,15 @@ possible vars:
 XPRA_PASSWORD, xpra password
 USERNAME, username for running xpra in linux system
 XPRAPORT, xpra port number
-
+SCREEN_RESULTION, resolution for virtual screen, default 4096x2160 (4k)
 
 You have to use a free tty where Xorg can run on. 
 
 Connect with Xpra Client 
 
 ```sh
-XPRA_PASSWORD=Nextpass xpra attach ssl:HOSTNAME:10050 --ssl-server-verify-mode=none --encoding=h264
+XPRA_PASSWORD=Nextpass xpra attach ssl:HOSTNAME:10050 --ssl-server-verify-mode=none
 ```
-
 The switch --ssl-server-verify-mode=none is necessary, because we used a self signed Cert.
+
+If there is no nvenc encoding, visulization gives the best results with --encoding=jpeg
