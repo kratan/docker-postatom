@@ -12,8 +12,11 @@ docker run --device=/dev/nvidiactl --device=/dev/nvidia-uvm --device=/dev/nvidia
 ```
 possible vars:
 XPRA_PASSWORD, xpra password
+
 USERNAME, username for running xpra in linux system
+
 XPRAPORT, xpra port number
+
 SCREEN_RESULTION, resolution for virtual screen, default 4096x2160 (4k)
 
 You have to use a free tty where Xorg can run on. 
